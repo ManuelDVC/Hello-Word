@@ -1,0 +1,59 @@
+private static void p_EnvioFacturaWS()
+        {
+            var objGeneral = new WS_TCI_Emisor.General();
+
+            var objEmpresa = new WS_TCI_Emisor.ENEmpresa();
+            objEmpresa.CodigoTipoDocumento = "6";
+            objEmpresa.Ruc = "20553167672";
+            objEmpresa.RazonSocial = "NUMAY SOCIEDAD ANONIMA";
+            objEmpresa.CodDistrito= "150131";
+            objEmpresa.NombreComercial = "NUMAY SA";
+            objEmpresa.Calle = "AV. REPUBLICA DE PANAMA NRO. 3591 INT. 401";
+            objEmpresa.Urbanizacion = "SAN ISIDRO";
+            objEmpresa.Departamento = "LIMA";
+            objEmpresa.Provincia = "LIMA";
+            objEmpresa.Distrito = "SAN ISIDRO";
+            objGeneral.oENEmpresa = objEmpresa;
+
+            var objComprobante = new WS_TCI_Emisor.ENComprobante();
+            objComprobante.Serie = "F001";
+            objComprobante.Numero = "5";
+            objComprobante.FechaEmision = DateTime.Parse("2018-02-01");
+            objComprobante.TipoComprobante = "01";
+            objComprobante.Moneda = "PEN";
+            objComprobante.TipoPago = "0";      //  0:Contado   1:Crédito
+            objComprobante.ComprobanteAlias = "12345678901"; //    SCOP
+            objComprobante.CodigoCliente = "123";
+            objComprobante.TipoDocumentoIdentidad = "6";
+            objComprobante.Ruc = "20135674410";
+            objComprobante.RazonSocial = "NAUTILIUS S.A.";
+            objComprobante.ImporteTotal = Decimal.Parse("702.40");
+            objComprobante.NrodePedido = "1";
+            objComprobante.HoraEmision = "11:30:00";
+            objGeneral.oENComprobante = objComprobante;
+
+            var objReceptor = new WS_TCI_Emisor.ENReceptor();
+            objReceptor.Calle = "AV. JAVIER PRADO 230";
+            objReceptor.Urbanizacion = "SAN BORJA";
+            objReceptor.Departamento = "LIMA";
+            objReceptor.Provincia = "LIMA";
+            objReceptor.Distrito = "SAN BORJA";
+            objGeneral.oENComprobante.Receptor[0] = objReceptor; 
+
+            var objComprobanteDetalle = new WS_TCI_Emisor.ENComprobanteDetalle();
+            objComprobanteDetalle.Item = 1;
+            objComprobanteDetalle.UnidadComercial = "NIU";  //UNIDAD SEGUN CATALOGO
+            objComprobanteDetalle.Cantidad = 4;
+            objComprobanteDetalle.Total = 1000;
+            objComprobanteDetalle.Determinante = "1"; //  1: Onerosa         2: No Onerosa
+            objComprobanteDetalle.CodigoTipoPrecio = "01"; //  01: Onerosa         02: No Onerosa
+            objComprobanteDetalle.ValorVentaUnitario = 1000;
+            objComprobanteDetalle.ValorVentaUnitarioIncIgv = 1180;
+            objComprobanteDetalle.Descripcion = "Producto de Prueba";
+            objComprobanteDetalle.MultiDescripcion[0] = "Detalle - Observación";
+            objComprobanteDetalle.Codigo = "1003";
+            objComprobanteDetalle.Nota = "34.6/23.80"; //  TEMPERATURA Y API
+            objComprobanteDetalle.UnidadMedidaEmisor = "UNI"; //  UNIDAD RI
+            objGeneral.oENComprobante.ComprobanteDetalle[0] = objComprobanteDetalle;
+
+        }
